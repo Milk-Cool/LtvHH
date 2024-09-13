@@ -85,12 +85,13 @@ cron.schedule(crone, async () => {
                     msg += `\nЗарплата: ${salary(old.salary)} -> ${salary(vacancy.salary)}`;
                 if(JSON.stringify(old.snippet) != JSON.stringify(vacancy.snippet))
                     msg += `\nОписание: Требования = \"${old.snippet.requirement}\", ответственность = \"${old.snippet.responsibility}\" -> Требования = \"${vacancy.snippet.requirement}\", ответственность = \"${vacancy.snippet.responsibility}\"`;
+                msg += `\n\nhttps://hh.ru/vacancy/${vacancy.id}`;
                 bot.telegram.sendMessage(ID, msg);
                 data[vacancy.id] = vacancy;
             }
         } else {
             data[vacancy.id] = vacancy;
-            const msg = `🟩 Добавлено #v${vacancy.id}`;
+            const msg = `🟩 Добавлено #v${vacancy.id}\nhttps://hh.ru/vacancy/${vacancy.id}`;
             bot.telegram.sendMessage(ID, msg);
         }
     }
