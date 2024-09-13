@@ -1,6 +1,6 @@
 {
   "name": "ltvhh",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Tracks new and removed vacancies on hh.ru for Letovo School",
   "main": "index.js",
   "type": "module",

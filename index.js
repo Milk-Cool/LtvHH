@@ -6,7 +6,7 @@ import { join } from "path";
 const { TOKEN, ID, APP_NAME, EMAIL } = process.env;
 // TODO: handle multiple pages (though i don't think it's necessary here)
 const url = "https://api.hh.ru/vacancies?employer_id=2348579&per_page=100";
-const crone = "0-59/1 * * * *";
+const crone = "0-59/5 * * * *";
 const file = join(import.meta.dirname, "data.json");
 
 const ids = {
@@ -91,7 +91,16 @@ cron.schedule(crone, async () => {
             }
         } else {
             data[vacancy.id] = vacancy;
-            const msg = `🟩 Добавлено #v${vacancy.id}\nhttps://hh.ru/vacancy/${vacancy.id}`;
+            const msg = `🟩 Добавлено #v${vacancy.id}
+Название: ${vacancy.name}
+Адрес: ${vacancy.address ? `${vacancy.address.raw} (${addr(vacancy.address.id)})` : "Неизвестно"}
+Расписание: ${vacancy.schedule ? vacancy.schedule.name : "Неизвестно"}
+Опыт: ${vacancy.experience ? vacancy.experience.name : "Неизвестно"}
+Трудоустройство: ${vacancy.employment ? vacancy.employment.name : "Неизвестно"}
+Зарплата: ${salary(vacancy.salary)}
+Описание: Требования = \"${vacancy.snippet.requirement}\", ответственность = \"${vacancy.snippet.responsibility}\"
+
+https://hh.ru/vacancy/${vacancy.id}`;
             await bot.telegram.sendMessage(ID, msg);
         }
     }
