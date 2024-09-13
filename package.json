@@ -1,0 +1,28 @@
+{
+  "name": "ltvhh",
+  "version": "0.1.0",
+  "description": "Tracks new and removed vacancies on hh.ru for Letovo School",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Milk-Cool/LtvHH.git"
+  },
+  "keywords": [
+    "letovo",
+    "ltv",
+    "track",
+    "hhru",
+    "hh",
+    "headhunter"
+  ],
+  "author": "Milk_Cool",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Milk-Cool/LtvHH/issues"
+  },
+  "homepage": "https://github.com/Milk-Cool/LtvHH#readme"
+}
