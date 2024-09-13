@@ -6,7 +6,7 @@ import { join } from "path";
 const { TOKEN, ID, APP_NAME, EMAIL } = process.env;
 // TODO: handle multiple pages (though i don't think it's necessary here)
 const url = "https://api.hh.ru/vacancies?employer_id=2348579&per_page=100";
-const crone = "0/5 * * * *";
+const crone = "0-59/1 * * * *";
 const file = join(import.meta.dirname, "data.json");
 
 const ids = {
@@ -86,19 +86,19 @@ cron.schedule(crone, async () => {
                 if(JSON.stringify(old.snippet) != JSON.stringify(vacancy.snippet))
                     msg += `\nОписание: Требования = \"${old.snippet.requirement}\", ответственность = \"${old.snippet.responsibility}\" -> Требования = \"${vacancy.snippet.requirement}\", ответственность = \"${vacancy.snippet.responsibility}\"`;
                 msg += `\n\nhttps://hh.ru/vacancy/${vacancy.id}`;
-                bot.telegram.sendMessage(ID, msg);
+                await bot.telegram.sendMessage(ID, msg);
                 data[vacancy.id] = vacancy;
             }
         } else {
             data[vacancy.id] = vacancy;
             const msg = `🟩 Добавлено #v${vacancy.id}\nhttps://hh.ru/vacancy/${vacancy.id}`;
-            bot.telegram.sendMessage(ID, msg);
+            await bot.telegram.sendMessage(ID, msg);
         }
     }
     for(const vacancyID in data)
         if(!j.items.find(x => x.id == vacancyID)) {
             const msg = `🟥 Удалено #v${vacancyID}`;
-            bot.telegram.sendMessage(ID, msg);
+            await bot.telegram.sendMessage(ID, msg);
             delete data[vacancyID];
         }
     writeFileSync(file, JSON.stringify(data));
