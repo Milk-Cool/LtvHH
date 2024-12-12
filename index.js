@@ -53,7 +53,7 @@ const construct = raw => {
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
-cron.schedule(crone, async () => {
+cron.schedule(crone, async () => { try {
     const f = await fetch(url, {
         "headers": {
             "User-Agent": `${APP_NAME}/1.0 (${EMAIL})`
@@ -114,4 +114,4 @@ https://hh.ru/vacancy/${vacancy.id}`;
             delete data[vacancyID];
         }
     writeFileSync(file, JSON.stringify(data));
-});
+} catch(e) { console.error(e); } });
