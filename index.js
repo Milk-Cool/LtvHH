@@ -104,7 +104,7 @@ cron.schedule(crone, async () => { try {
 
 https://hh.ru/vacancy/${vacancy.id}`;
             await bot.telegram.sendMessage(ID, msg);
-            await delay(100); // to avoid errors
+            await delay(3500); // to avoid errors
         }
     }
     for(const vacancyID in data)
