@@ -51,6 +51,8 @@ const construct = raw => {
     };
 }
 
+const delay = time => new Promise(resolve => setTimeout(resolve, time));
+
 cron.schedule(crone, async () => {
     const f = await fetch(url, {
         "headers": {
@@ -102,6 +104,7 @@ cron.schedule(crone, async () => {
 
 https://hh.ru/vacancy/${vacancy.id}`;
             await bot.telegram.sendMessage(ID, msg);
+            await delay(100); // to avoid errors
         }
     }
     for(const vacancyID in data)
